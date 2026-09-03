@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - CRM Demo</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <h2>CRM Demo</h2>
+      <nav>
+        <a href="/dashboard.html" class="active">Início</a>
+        <a href="#">Clientes</a>
+        <a href="#">Vendas</a>
+        <a href="#">Tarefas</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Olá, <span id="userName">...</span></h1>
+        <button class="logout-btn" id="logoutBtn">Sair</button>
+      </div>
+
+      <section class="cards">
+        <div class="card">
+          <div class="label">Clientes ativos</div>
+          <div class="value" id="statAtivos">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Em negociação</div>
+          <div class="value" id="statNegociacao">-</div>
+        </div>
+        <div class="card">
+          <div class="label">Total de clientes</div>
+          <div class="value" id="statTotal">-</div>
+        </div>
+      </section>
+
+      <section class="table-wrap">
+        <h3 style="margin-bottom: 1rem; font-size: 1rem;">Clientes recentes</h3>
+        <table>
+          <thead>
+            <tr><th>Nome</th><th>Empresa</th><th>Status</th></tr>
+          </thead>
+          <tbody id="clientesBody">
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+services:
+  crm-app:
+    build: .
+    container_name: crm-demo
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - JWT_SECRET=troque-este-segredo-em-producao
+    volumes:
+      - crm-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  crm-data:
