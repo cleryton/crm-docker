@@ -1,0 +1,26 @@
+name: Deploy para a VM Azure
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conectar na VM e atualizar o projeto
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          password: ${{ secrets.VM_PASSWORD }}
+          script: |
+            set -e
+            cd ~/crm-docker/crm-docker
+            echo "Puxando as atualizações do repositório..."
+            git pull origin main
+            echo "Reconstruindo e subindo os containers..."
+            sudo docker compose up --build -d
+            echo "Deploy concluído com sucesso!"
