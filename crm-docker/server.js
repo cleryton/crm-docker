@@ -10,6 +10,7 @@ const dataDir = path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 
 const db = require('./db');
+const { validarCadastro, DadosInvalidosError } = require('./validarCadastro');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,13 +34,16 @@ function authMiddleware(req, res, next) {
 
 // ---------- Rotas de API: Auth ----------
 app.post('/api/register', (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
-    return res.status(400).json({ error: 'Preencha nome, email e senha' });
+  let dadosValidados;
+  try {
+    dadosValidados = validarCadastro(req.body);
+  } catch (err) {
+    if (err instanceof DadosInvalidosError) {
+      return res.status(400).json({ error: err.erros.join(', '), erros: err.erros });
+    }
+    throw err;
   }
-  if (password.length < 6) {
-    return res.status(400).json({ error: 'A senha deve ter ao menos 6 caracteres' });
-  }
+  const { name, email, password } = dadosValidados;
 
   const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
   if (existing) {

@@ -4,7 +4,8 @@
   "description": "CRM minimo (login, registro, tela inicial) para validacao em Docker/Azure",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test"
   },
   "dependencies": {
     "express": "^4.19.2",
