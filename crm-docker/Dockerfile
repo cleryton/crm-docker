@@ -13,7 +13,7 @@ COPY . .
 # pasta onde o sqlite guarda os dados (pode virar volume)
 RUN mkdir -p /app/data
 
-ENV PORT=3000
-EXPOSE 3000
+ENV PORT=8080
+EXPOSE 8080
 
 CMD ["node", "server.js"]
